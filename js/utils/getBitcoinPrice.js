@@ -4,67 +4,15 @@ var _ = require('underscore'),
 Backbone.$ = $;
 
 /*eslint no-use-before-define:0*/
-module.exports = function(currency, callback){
+module.exports = function(stuff, callback){
 
   //some APIs require currency to be upper case
-  currency = currency.toUpperCase();
-
   //if currency is Bitcoin, don't bother with finding the Bitcoin value
-  if(currency !== 'BTC')
-  {
 
     var btPrices = [];
-
-    //initial call
-    $.ajax({
-      method: "GET",
-      url: "https://api.bitcoinaverage.com/ticker/global/" + currency
-    })
-        .done(function (response)
-        {
-          //console.log("bitcoinAverage: " + response['24h_avg']);
-          if($.isNumeric(response['24h_avg'])) {
-            btPrices.push(response['24h_avg']);
-          }
-        })
-        .fail(function (jqXHR, textStatus, errorThrown)
-        {
-          console.log("bitcoinAverage request failed:");
-          console.log(jqXHR);
-          console.log(textStatus);
-          console.log(errorThrown);
-        })
-        .always(function ()
-        {
-          callCoindesk();
-        });
-
-    var callCoindesk = function ()
-    {
-      $.ajax({
-        method: "GET",
-        dataType: "json",
-        url: "https://api.coindesk.com/v1/bpi/currentprice/" + currency + ".json"
-      })
-          .done(function (response)
-          {
-            //console.log("coinDesk: " + response.bpi[currency]['rate']);
-            if($.isNumeric(response.bpi[currency]['rate'])) {
-              btPrices.push(response.bpi[currency]['rate']);
-            }
-          })
-          .fail(function (jqXHR, textStatus, errorThrown)
-          {
-            console.log("coinDesk request failed:");
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-          })
-          .always(function ()
-          {
-            callBlockchain();
-          });
-    };
+    var btcPrices = [];
+	var btcAverages = {};
+    var currency = 'USD';
 
     var callBlockchain = function ()
     {
@@ -75,6 +23,11 @@ module.exports = function(currency, callback){
           .done(function (response)
           {
             //console.log("blockChain: " + response[currency]['15m']);
+            var obj = {};
+            for(var currency in response) {
+		obj[currency] = {price: response[currency]['15m'], time: 0};
+            }
+            btcPrices.push(obj);
             if($.isNumeric(response[currency]['15m'])) {
               btPrices.push(response[currency]['15m']);
             }
@@ -100,6 +53,11 @@ module.exports = function(currency, callback){
       })
           .done(function (response)
           {
+            var obj = {};
+            for(var currency in response.rates.BTC) {
+		obj[currency] = {price: response.rates.BTC[currency]['rate'], time: 0};
+            }
+            btcPrices.push(obj);
             //console.log("coinKite: " + response.rates.BTC[currency]['rate']);
             if ($.isNumeric(response.rates.BTC[currency]['rate'])) {
               btPrices.push(response.rates.BTC[currency]['rate']);
@@ -114,16 +72,50 @@ module.exports = function(currency, callback){
           })
           .always(function ()
           {
+            console.log(btcPrices);
             makeAveragePrice();
           });
     };
 
+    callBlockchain();
 
     var makeAveragePrice = function ()
     {
+	var keys = {};
+	for (var d in btcPrices)
+{
+	keys = $.extend(keys,btcPrices[d]);
+} 
+var currencies = Object.keys(keys);
+console.log(currencies);
+for(var i in currencies)
+{
+var c = currencies[i];
+var avg = [];
+	for(var d in btcPrices)
+{
+	if(btcPrices[d][c])
+{
+	avg.push(btcPrices[d][c].price);
+}
+
+}
+var sum = 0;
+console.log(avg);
+for(var s in avg)
+{
+var price = avg[s];
+sum+= parseInt(price,10);
+}
+var avg = sum/avg.length;
+btcAverages[c] = {price: avg, time: 0};
+}
+window.btcAverages= btcAverages;
+
+
       var sum = 0,
-          btAve = 0;
-      for (var i = 0; i < btPrices.length; i++)
+          btAve = 0;      
+for (var i = 0; i < btPrices.length; i++)
       {
         sum = sum + Number(btPrices[i]);
       }
@@ -132,8 +124,4 @@ module.exports = function(currency, callback){
 
       typeof callback === 'function' && callback(btAve);
     };
-
-  }else{
-    typeof callback === 'function' && callback(1);
-  }
 };
