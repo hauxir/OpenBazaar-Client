@@ -17,6 +17,7 @@ module.exports = function(currency, callback){
     var btPrices = [];
     var btcAverages = {rates: {}};
 
+
     var callBlockchain = function ()
     {
       $.ajax({
@@ -143,6 +144,7 @@ module.exports = function(currency, callback){
       }
       if(btPrices.length === 0){
         alert("Bitcoin exchange rates are not available.");
+      }
       var currencyKeys = Object.keys(keys);
       for (var index in currencyKeys) {
         var currencyCode = currencyKeys[index];
