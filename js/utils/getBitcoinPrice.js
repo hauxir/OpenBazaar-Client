@@ -7,7 +7,8 @@ Backbone.$ = $;
 module.exports = function (currency, callback) {
 
     //some APIs require currency to be upper case
-    //if currency is Bitcoin, don't bother with finding the Bitcoin value
+    currency = currency.toUpperCase();
+
     window.btcAverages = {};
     var btcPrices = [];
     var btcAverages = {rates: {}};
@@ -126,7 +127,6 @@ module.exports = function (currency, callback) {
                 if (btcPrices[j][currencyCode]) {
                     currencyPrices.push(btcPrices[j][currencyCode]);
                 }
-
             }
             var sum = 0;
             for (var jIndex in currencyPrices) {
@@ -137,8 +137,7 @@ module.exports = function (currency, callback) {
         }
         window.btcAverages = btcAverages;
 
-        var btAve;
-        btAve = btcAverages.rates[currency];
+        var btAve = btcAverages.rates[currency];
 
         typeof callback === 'function' && callback(btAve);
     };
