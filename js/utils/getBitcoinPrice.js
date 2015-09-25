@@ -8,9 +8,9 @@ module.exports = function (currency, callback) {
 
     //some APIs require currency to be upper case
     //if currency is Bitcoin, don't bother with finding the Bitcoin value
-
+    window.btcAverages = {};
     var btcPrices = [];
-    var btcAverages = {};
+    var btcAverages = {rates: {}};
 
     var callBlockchain = function () {
         $.ajax({
@@ -66,8 +66,9 @@ module.exports = function (currency, callback) {
             .done(function (response) {
                 var bitCoinAvgCurrencies = {};
                 for (var currency in response) {
-                    if(response[currency].averages)
+                    if(response[currency].averages) {
                         bitCoinAvgCurrencies[currency] = response[currency].averages['24h_avg'];
+                    }
                 }
                 btcPrices.push(bitCoinAvgCurrencies);
             })
@@ -106,7 +107,7 @@ module.exports = function (currency, callback) {
     };
 
     if(window.btcAverages.timeStamp && Math.floor((new Date() - window.btcAverages.timeStamp)/60000) < 15){
-        typeof callback === 'function' && callback(window.btcAverages[currency]);
+        typeof callback === 'function' && callback(window.btcAverages.rates[currency]);
     } else {
         callBlockchain();
     }
@@ -132,12 +133,12 @@ module.exports = function (currency, callback) {
                 sum += Number(currencyPrices[jIndex]);
             }
             var averagePrice = sum / currencyPrices.length;
-            btcAverages[currencyPrices] = averagePrice;
+            btcAverages.rates[currencyCode] = averagePrice;
         }
         window.btcAverages = btcAverages;
 
         var btAve;
-        btAve = btcAverages[currency];
+        btAve = btcAverages.rates[currency];
 
         typeof callback === 'function' && callback(btAve);
     };
