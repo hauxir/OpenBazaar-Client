@@ -7,6 +7,7 @@ var homeView = require('./views/homeVw'),
     userPageView = require('./views/userPageVw'),
     aboutView = require('./views/aboutVw');
     donateView = require('./views/donateVw');
+    settingsView = require('./views/settingsVw');
 
 module.exports = Backbone.Router.extend({
 
@@ -80,7 +81,7 @@ module.exports = Backbone.Router.extend({
   },
 
   settings: function(){
-    console.log("settings");
+    this.newView(new settingsView());
   },
 
   about: function(){
