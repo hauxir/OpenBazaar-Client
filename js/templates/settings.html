@@ -1,3 +1,165 @@
-<div class="mainContainer custCol-background">
-<p>hello world</p>
+<div class="smPageHeader shadow-inner2 custCol-primary">
+    <div class="flexRow align-bottom">
+            <div class="thumbnail thumbnail-small pull-left"
+                 style="background-image: url(<%- ob.user.server %>get_image?hash=<%- ob.page.profile.avatar_hash %>);"></div>
+            <div class="vCentered">
+                <h1 class="h3 unbold smPageHeading allCaps">Settings</h1>
+            </div>
+    </div>
+</div>
+
+<div class="bar navBar barFlush navBar custCol-secondary">
+
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab active">General</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Shipping</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Store</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Blocked</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Advanced</a>
+
+  <div class="navEnd pad15">
+        <div class="nav-ctrlGroup js-pageButtons js-userPageControls pull-up50">
+            <a class="btn btn-txt custCol-primary textOpacity75">Cancel</a>
+        </div>
+        <div class="nav-ctrlGroup js-pageButtons js-userPageControls pull-up50">
+            <a class="btn btn-txt custCol-primary">Save changes</a>
+        </div>
+  </div>
+
+</div>
+
+<div class="flexRow border0 marginBottom50 minHeight650 custCol-primary">
+    <div class="flexRow flexExpand">
+        <div class="flexCol-12 flex-border">
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3 borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="name">Name</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="name"
+                               type="text"
+                               id="inputName"
+                               placeholder="Your name"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="inputSku">Avatar</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input class="fieldItem custCol-text filestuff" type="file" name="img">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3 borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="handle">Handle</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="handle"
+                               type="text"
+                               id="handle"
+                               placeholder="@john"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="inputSku">Bitcoin return address</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="sku"
+                               type="text"
+                               id="inputBtcReturnAddress"
+                               placeholder="Address"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="country">Country</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <select name="country" class="custCol-text" id="country">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="currency">Local currency</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <select name="currency" class="custCol-text" id="currency">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="inputSku">Time zone</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <select name="timezone" class="custCol-text" id="timezone">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
 </div>
