@@ -10,18 +10,18 @@
 
 <div class="bar navBar barFlush navBar custCol-secondary">
 
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab active">General</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Shipping</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Store</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Blocked</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab">Advanced</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-generalTab active">General</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-shippingTab">Shipping</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-storeTab">Store</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-blockedTab">Blocked</a>
+    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-advancedTab">Advanced</a>
 
   <div class="navEnd pad15">
         <div class="nav-ctrlGroup js-pageButtons js-userPageControls pull-up50">
-            <a class="btn btn-txt custCol-primary textOpacity75">Cancel</a>
+            <a class="btn btn-txt custCol-primary textOpacity75 js-cancelSettings">Cancel</a>
         </div>
         <div class="nav-ctrlGroup js-pageButtons js-userPageControls pull-up50">
-            <a class="btn btn-txt custCol-primary">Save changes</a>
+            <a class="btn btn-txt custCol-primary js-saveSettings">Save changes</a>
         </div>
   </div>
 
@@ -29,7 +29,7 @@
 
 <div class="flexRow border0 marginBottom50 minHeight650 custCol-primary">
     <div class="flexRow flexExpand">
-        <div class="flexCol-12 flex-border">
+        <div class="flexCol-12 flex-border js-tabTarg js-general">
 
                 <div class="flexRow custCol-border-secondary">
 
@@ -68,14 +68,14 @@
 
                     <div class="flexCol-3 borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="handle">Handle</label>
+                            <label for="inputHandle">Handle</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
-                        <input name="handle"
+                        <input name="inputHandle"
                                type="text"
-                               id="handle"
+                               id="inputHandle"
                                placeholder="@john"
                                class="fieldItem custCol-text"
                                value="">
@@ -87,14 +87,14 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="inputSku">Bitcoin return address</label>
+                            <label for="inputBtcAddress">Bitcoin return address</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <input name="sku"
                                type="text"
-                               id="inputBtcReturnAddress"
+                               id="inputBtcAddress"
                                placeholder="Address"
                                class="fieldItem custCol-text"
                                value="">
@@ -106,14 +106,14 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="country">Country</label>
+                            <label for="inputCountry">Country</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="country" class="custCol-text" id="country">
+                                <select name="inputCountry" class="custCol-text" id="inputCountry">
                                 </select>
                             </div>
                         </div>
@@ -125,14 +125,14 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="currency">Local currency</label>
+                            <label for="inputCurrency">Local currency</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="currency" class="custCol-text" id="currency">
+                                <select name="inputCurrency" class="custCol-text" id="inputCurrency">
                                 </select>
                             </div>
                         </div>
@@ -144,14 +144,14 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="inputSku">Time zone</label>
+                            <label for="inputTimezone">Time zone</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="timezone" class="custCol-text" id="timezone">
+                                <select name="inputTimezone" class="custCol-text" id="inputTimezone">
                                 </select>
                             </div>
                         </div>
@@ -159,6 +159,18 @@
 
                 </div>
 
+            </div>
+            <div class="flexCol-12 flex-border hide js-tabTarg js-shipping">
+                SHIPPING
+            </div>
+            <div class="flexCol-12 flex-border hide js-tabTarg js-store">
+                STORE
+            </div>
+            <div class="flexCol-12 flex-border hide js-tabTarg js-blocked">
+                BLOCKED
+            </div>
+            <div class="flexCol-12 flex-border hide js-tabTarg js-advanced">
+                ADVANCED
             </div>
         </div>
 

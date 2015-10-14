@@ -11,6 +11,16 @@ module.exports = Backbone.View.extend({
 
   className: "settingsPage",
 
+  events: {
+    'click .js-generalTab': 'generalClick',
+    'click .js-shippingTab': 'shippingClick',
+    'click .js-storeTab': 'storeClick',
+    'click .js-blockedTab': 'blockedClick',
+    'click .js-advancedTab': 'advancedClick',
+    'click .js-cancelSettings': 'cancelClick',
+    'click .js-saveSettings': 'saveClick'
+  },
+
   initialize: function(options){
     var self = this;
     this.options = options || {};
@@ -37,6 +47,14 @@ module.exports = Backbone.View.extend({
     loadTemplate('./js/templates/settings.html', function(loadedTemplate) {
       self.$el.html(loadedTemplate(self.model.toJSON()));
       self.setFormValues();
+      var user = self.model.attributes.user;
+      var avatar = user.avatar_hash;
+      $("#inputName").val(user.name);
+      $("#inputHandle").val(user.handle);
+      $("#inputBtcAddress").val(user.bitcoinAddress);
+      $("#inputCurrency").val(user.currencyCode);
+      $("#inputCountry").val(user.country);
+      $("#inputTimezone").val(user.timezone);
     });
     return this;
   },
@@ -46,9 +64,9 @@ module.exports = Backbone.View.extend({
     var timezones = new timezonesModel();
     var countryList = countries.get('countries');
     var timezoneList = timezones.get('timezones');
-    var country = this.$el.find('#country');
-    var currency= this.$el.find('#currency');
-    var timezone= this.$el.find('#timezone');
+    var country = this.$el.find('#inputCountry');
+    var currency = this.$el.find('#inputCurrency');
+    var timezone = this.$el.find('#inputTimezone');
     __.each(countryList, function(c, i){
       country.append('<option value="'+c.dataName+'">'+c.name+'</option>');
       currency.append('<option value="'+c.code+'">'+c.currency+'</option>');
@@ -64,7 +82,6 @@ module.exports = Backbone.View.extend({
     if(this.model.get('page')){
       var customStyleTag = document.getElementById('customStyle') || document.createElement('style');
       customStyleTag.setAttribute('id', 'customStyle');
-      console.log(this.model.get('page').profile.background_color);
       customStyleTag.innerHTML =
           "#ov1 .userPage .custCol-background, #ov1 .userPage.body { background-color: " + this.model.get('page').profile.background_color + ";}" +
           "#ov1 .userPage .custCol-primary-light { transition: background-color .3s cubic-bezier(0, 0, 0.0, 1);  background-color: " + this.shadeColor2(this.model.get('page').profile.primary_color, 0.04) + ";}" +
@@ -89,9 +106,46 @@ module.exports = Backbone.View.extend({
       });
     }
   },
-  shadeColor2: function shadeColor2(color, percent) {   
+
+  shadeColor2: function shadeColor2(color, percent) {
     var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
     return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
   },
+
+  tabClick: function(activeTab, showContent){
+    "use strict";
+    this.$el.find('.js-tab').removeClass('active');
+    activeTab.addClass('active');
+    this.$el.find('.js-tabTarg').addClass('hide');
+    showContent.removeClass('hide');
+  },
+
+  generalClick: function(e){
+    this.tabClick($(e.target).closest('.js-tab'), this.$el.find('.js-general'));
+  },
+
+  shippingClick: function(e){
+    this.tabClick($(e.target).closest('.js-tab'), this.$el.find('.js-shipping'));
+  },
+
+  storeClick: function(e){
+    this.tabClick($(e.target).closest('.js-tab'), this.$el.find('.js-store'));
+  },
+
+  blockedClick: function(e){
+    this.tabClick($(e.target).closest('.js-tab'), this.$el.find('.js-blocked'));
+  },
+
+  advancedClick: function(e){
+    this.tabClick($(e.target).closest('.js-tab'), this.$el.find('.js-advanced'));
+  },
+
+  cancelClick: function(e){
+      alert("CANCEL");
+  },
+
+  saveClick: function(e){
+      alert("SAVE");
+  }
 
 });
