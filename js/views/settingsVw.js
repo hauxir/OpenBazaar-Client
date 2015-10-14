@@ -3,7 +3,6 @@ var __ = require('underscore'),
     $ = require('jquery'),
     userProfileModel = require('../models/userProfileMd'),
     loadTemplate = require('../utils/loadTemplate'),
-    chosen = require('../utils/chosen.jquery.min.js'),
     timezonesModel = require('../models/timezonesMd'),
     languagesModel = require('../models/languagesMd.js'),
     countriesModel = require('../models/countriesMd');
@@ -47,20 +46,6 @@ module.exports = Backbone.View.extend({
     loadTemplate('./js/templates/settings.html', function(loadedTemplate) {
       self.$el.html(loadedTemplate(self.model.toJSON()));
       self.setFormValues();
-      var user = self.model.attributes.user;
-      var avatar = user.avatar_hash;
-      $("#inputName").val(user.name);
-      $("#inputHandle").val(user.handle);
-      $("#refund_address").val(user.bitcoinAddress);
-      $("#currency_code").val(user.currency_code);
-      $("#inputCountry").val(user.country);
-      $("#inputTimezone").val(user.timezone);
-      $("#notifications").attr("checked",user.notifications);
-      $("#libbitcoin_server").val(user.libbitcoin_server);
-      $("#ssl").attr("checked",user.ssl);
-      $("#refund_policy").val(user.refund_policy);
-      $("#terms_conditions").val(user.terms_conditions);
-      console.log(user);
     });
     return this;
   },
@@ -76,21 +61,26 @@ module.exports = Backbone.View.extend({
     var currency = this.$el.find('#currency_code');
     var timezone = this.$el.find('#time_zone');
     var language = this.$el.find('#language');
+    var user = this.model.attributes.user;
+    var avatar = user.avatar_hash;
     __.each(countryList, function(c, i){
-      country.append('<option value="'+c.dataName+'">'+c.name+'</option>');
-      currency.append('<option value="'+c.code+'">'+c.currency+'</option>');
+      var country_option = $('<option value="'+c.dataName+'">'+c.name+'</option>');
+      var currency_option = $('<option value="'+c.code+'">'+c.currency+'</option>');
+      currency_option.attr("selected",user.currency== c.code);
+      country_option.attr("selected",user.country == c.dataName);
+      currency.append(currency_option);
+      country.append(country_option);
     });
     __.each(timezoneList, function(t, i){
-      timezone.append('<option value="'+t.offset+'">'+t.name+'</option>');
+      var timezone_option = $('<option value="'+t.offset+'">'+t.name+'</option>');
+      timezone_option.attr("selected",user.time_zone == t.offset);
+      timezone.append(timezone_option);
     });
     __.each(languageList, function(l, i){
-      language.append('<option value="'+l.langCode+'">'+l.langName+'</option>');
+        var language_option = $('<option value="'+l.langCode+'">'+l.langName+'</option>');
+        language_option.attr("selected",user.language == l.langCode);
+        language.append(language_option);
     });
-  },
-
-  shadeColor2: function shadeColor2(color, percent) {
-    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
-    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
   },
 
   tabClick: function(activeTab, showContent){

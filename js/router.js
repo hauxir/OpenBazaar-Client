@@ -82,7 +82,7 @@ module.exports = Backbone.Router.extend({
 
   settings: function(){
     this.newView(new settingsView({userModel: this.options.userModel}));
-    $('body').addClass("userPage");
+    $('body').removeClass("userPage");
   },
 
   about: function(){

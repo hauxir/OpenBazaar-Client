@@ -79,6 +79,7 @@ textarea {
 input[type="file"] {
     padding-left:10px;
     padding-top:15px;
+    color: #fff;
 }
 
 input[type="checkbox"] {
@@ -419,12 +420,11 @@ form {
   transition: all .1s cubic-bezier(0, 0, 0.5, 1);
 }
 
-<<<<<<< 4b3a2e05a2abf539bfbb6908dc15a3baafb6e141
 .thumbnail-large-slim {
   height: 58px;
   width: 58px;
   transition: all .1s cubic-bezier(0, 0, 0.5, 1);
-=======
+
 .thumbnail-small {
   border-radius: 2px;
   height: 55px;
@@ -597,12 +597,6 @@ h5 {
 
 .unbold {
   font-weight: 400;
-}
-
-.smPageHeading{
-    font-size:12px;
-    font-weight:700;
-    margin: 10px 0px 10px 10px;
 }
 
 .allCaps {
@@ -1601,11 +1595,23 @@ input[type="checkbox"].fieldItem:checked + label:before {
   box-shadow: inset 0px -130px 112px -52px rgba(25,25,25,.65);
 }
 
+.topThumb {
+  width:55px;
+  height:55px;
+  background-size: cover;
+  top: 24px;
+  content: " ";
+  left: 30px;
+  position: absolute;
+  z-index: 3;
+}
+
 .smPageHeader {
-  height: 48px;
-  margin-top:50px;
+  background-color: rgb(6,55,83);
+  height: 85px;
+  line-height: 50px;
   position: relative;
-  padding-left:20px;
+  z-index: 2;
 }
 
 .shadow-inner1 {
@@ -1615,10 +1621,20 @@ input[type="checkbox"].fieldItem:checked + label:before {
 
 .shadow-inner1-strong {
   box-shadow: inset 0px -400px 222px -182px rgba(25,25,25,.85);
+
+.smPageHeader div {
+  background-color: #215175;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  top: 35px;
+  height: 50px;
+  padding-left: 100px;
+  position: relative;
+  z-index: 1;
 }
 
-.shadow-inner2 {
-  box-shadow: inset 0px -130px 112px -52px rgba(25,25,25,0.5);
+.shadow-inner1 {
+  box-shadow: inset 0px -130px 112px -52px rgba(25,25,25,1);
 }
 
 .icon-centered {

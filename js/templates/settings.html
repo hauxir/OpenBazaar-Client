@@ -1,122 +1,127 @@
-<div class="smPageHeader shadow-inner2 custCol-primary">
-    <div class="flexRow align-bottom">
-            <div class="thumbnail thumbnail-small pull-left"
-                 style="background-image: url(<%- ob.user.server %>get_image?hash=<%- ob.page.profile.avatar_hash %>);"></div>
-            <div class="vCentered">
-                <h1 class="h3 unbold smPageHeading allCaps">Settings</h1>
-            </div>
+<div class="mainContainer marginTop50">
+
+<div class="topThumb"
+     style="background-image: url(<%- ob.user.server %>get_image?hash=<%- ob.page.profile.avatar_hash %>)"></div>
+
+<div class="stuff"></div>
+<div class="smPageHeader">
+    <div class="navEnd pad15">
+        <span class="allCaps">Settings</span>
+        <a class="btn btn-txt pull-right js-saveSettings" style="margin:10px 5px">Save changes</a>
+        <a class="btn btn-txt pull-right textOpacity75 js-cancelSettings" style="margin:10px 5px">Cancel</a>
     </div>
 </div>
 
-<div class="bar navBar barFlush navBar custCol-secondary">
+<div class="bar navBar barFlush navBar ">
 
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-generalTab active">General</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-shippingTab">Shipping</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-storeTab">Store</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-blockedTab">Blocked</a>
-    <a class="btn btn-bar btn-tab custCol-secondary js-tab js-advancedTab">Advanced</a>
+    <a class="btn btn-bar btn-tab js-tab js-generalTab active">General</a>
+    <a class="btn btn-bar btn-tab js-tab js-shippingTab">Shipping</a>
+    <a class="btn btn-bar btn-tab js-tab js-storeTab">Store</a>
+    <a class="btn btn-bar btn-tab js-tab js-blockedTab">Blocked</a>
+    <a class="btn btn-bar btn-tab js-tab js-advancedTab">Advanced</a>
 
   <div class="navEnd pad15">
         <div class="nav-ctrlGroup js-pageButtons js-userPageControls pull-up50">
-            <a class="btn btn-txt custCol-primary textOpacity75 js-cancelSettings">Cancel</a>
+            <a class="btn btn-txt g textOpacity75 js-cancelSettings">Cancel</a>
         </div>
         <div class="nav-ctrlGroup js-pageButtons js-userPageControls pull-up50">
-            <a class="btn btn-txt custCol-primary js-saveSettings">Save changes</a>
+            <a class="btn btn-txt g js-saveSettings">Save changes</a>
         </div>
   </div>
 
 </div>
 
-<div class="flexRow border0 marginBottom50 minHeight650 custCol-primary">
+<div class="flexContainer flex-border">
+<div class="flexRow border0 marginBottom50 minHeight650 g">
     <div class="flexRow flexExpand">
         <form id="settingsForm" name="settingsForm">
         <div class="flexCol-12 flex-border js-tabTarg js-general">
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3 borderRight custCol-border-secondary">
+                    <div class="flexCol-3 borderRight ">
                         <div class="fieldItem">
                             <label for="name">Name</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="name"
                                type="text"
                                id="inputName"
                                placeholder="Your name"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.name %>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="inputSku">Avatar</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
-                        <input class="fieldItem custCol-text filestuff" type="file" name="img">
+                    <div class="flexCol-9 ">
+                        <input class="fieldItem  filestuff" type="file" name="img">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3 borderRight custCol-border-secondary">
+                    <div class="flexCol-3 borderRight ">
                         <div class="fieldItem">
-                            <label for="inputHandle">Handle</label>
+                            <label for="handle">Handle</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
-                        <input name="inputHandle"
+                    <div class="flexCol-9 ">
+                        <input name="handle"
                                type="text"
-                               id="inputHandle"
+                               id="handle"
                                placeholder="@john"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.handle %>">
                     </div>
 
                 </div>
 
 
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="refund_address">Bitcoin return address</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="refund_address"
                                type="text"
                                id="refund_address"
                                placeholder="Address"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.refund_address %>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="country">Country</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="country" class="custCol-text" id="country">
+                                <select name="country" class="" id="country">
                                 </select>
                             </div>
                         </div>
@@ -124,18 +129,18 @@
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="language">Language</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="language" class="custCol-text" id="language">
+                                <select name="language" class="" id="language">
                                 </select>
                             </div>
                         </div>
@@ -143,18 +148,18 @@
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="currency_code">Local currency</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="currency_code" class="custCol-text" id="currency_code">
+                                <select name="currency_code" class="" id="currency_code">
                                 </select>
                             </div>
                         </div>
@@ -162,18 +167,18 @@
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="time_zone">Time zone</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="time_zone" class="custCol-text" id="time_zone">
+                                <select name="time_zone" class="" id="time_zone">
                                 </select>
                             </div>
                         </div>
@@ -184,151 +189,151 @@
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-shipping">
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ship_to_name">Ship to name</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="ship_to_name"
                                id="ship_to_name"
                                type="text"
                                placeholder="Name"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.ship_to_name%>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ship_to_street">Ship to street</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="ship_to_street"
                                id="ship_to_street"
                                type="text"
                                placeholder="Street"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.ship_to_street%>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ship_to_city">Ship to city</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="ship_to_city"
                                id="ship_to_city"
                                type="text"
                                placeholder="City"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.ship_to_city%>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ship_to_state">Ship to state</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="ship_to_state"
                                id="ship_to_state"
                                type="text"
                                placeholder="State"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.ship_to_state%>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ship_to_postal_code">Ship to postal code</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="ship_to_postal_code"
                                id="ship_to_postal_code"
                                type="text"
                                placeholder="Postal code"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.ship_to_postal_code%>">
                     </div>
 
                 </div>
 
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ship_to_country">Ship to country</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="ship_to_country"
                                id="ship_to_country"
                                type="text"
                                placeholder="Country"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.ship_to_postal_country%>">
                     </div>
 
                 </div>
 
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-store">
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="term_conditions">Terms and Conditions</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <textarea name="terms_conditions" id="terms_conditions" rows="6" class="fieldItem-textarea custCol-text"></textarea>
+                                <textarea name="terms_conditions" id="terms_conditions" rows="6" class="fieldItem-textarea" value=""><%= ob.user.terms_conditions %></textarea>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="refund_policy">Refund policy</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <textarea id="refund_policy" name="refund_policy" rows="6" class="fieldItem-textarea custCol-text"></textarea>
+                                <textarea name="refund_policy" id="refund_policy" rows="6" class="fieldItem-textarea" value=""><%= ob.user.refund_policy%></textarea>
                             </div>
                         </div>
                     </div>
@@ -339,55 +344,55 @@
                 BLOCKED
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-advanced">
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="notifications">Enable notifications</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <input type="checkbox" name="notifications" id="notifications">
+                                <input type="checkbox" name="notifications" id="notifications" checked="<%= ob.user.notifications%>">
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="ssl">Enable SSL</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <input type="checkbox" name="ssl" id="ssl">
+                                <input type="checkbox" name="ssl" id="ssl" checked="<%= ob.user.ssl%>">
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="flexRow custCol-border-secondary">
+                <div class="flexRow ">
 
-                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                    <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
                             <label for="libbitcoin_server">Libbitcoin server address</label>
                         </div>
                     </div>
 
-                    <div class="flexCol-9 custCol-border-secondary">
+                    <div class="flexCol-9 ">
                         <input name="libbitcoin_server"
                                id="libbitcoin_server"
                                type="text"
                                placeholder="Server IP:PORT"
-                               class="fieldItem custCol-text"
-                               value="">
+                               class="fieldItem "
+                               value="<%= ob.user.libbitcoin_server %>">
                     </div>
 
                 </div>
@@ -395,4 +400,6 @@
         </form>
         </div>
 
+</div>
+</div>
 </div>
