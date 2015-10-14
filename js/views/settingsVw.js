@@ -27,6 +27,7 @@ module.exports = Backbone.View.extend({
     this.userProfile = new userProfileModel();
     this.userProfile.urlRoot = options.userModel.get('server_url') + "profile";
     this.model = new Backbone.Model();
+    this.pageID = "";
     this.userProfile.fetch({
       data: $.param({'id': this.pageID}),
       success: function(model){
