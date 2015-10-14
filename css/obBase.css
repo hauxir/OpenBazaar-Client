@@ -81,8 +81,16 @@ input[type="file"] {
     padding-top:15px;
 }
 
+input[type="checkbox"] {
+    margin-left:15px;
+    margin-top:20px;
+}
+
 form {
   margin: 0;
+}
+#settingsForm {
+    width:100%;
 }
 
 

@@ -29,6 +29,7 @@
 
 <div class="flexRow border0 marginBottom50 minHeight650 custCol-primary">
     <div class="flexRow flexExpand">
+        <form id="settingsForm" name="settingsForm">
         <div class="flexCol-12 flex-border js-tabTarg js-general">
 
                 <div class="flexRow custCol-border-secondary">
@@ -83,18 +84,20 @@
 
                 </div>
 
+
+
                 <div class="flexRow custCol-border-secondary">
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="inputBtcAddress">Bitcoin return address</label>
+                            <label for="refund_address">Bitcoin return address</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
-                        <input name="sku"
+                        <input name="refund_address"
                                type="text"
-                               id="inputBtcAddress"
+                               id="refund_address"
                                placeholder="Address"
                                class="fieldItem custCol-text"
                                value="">
@@ -106,14 +109,14 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="inputCountry">Country</label>
+                            <label for="country">Country</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="inputCountry" class="custCol-text" id="inputCountry">
+                                <select name="country" class="custCol-text" id="country">
                                 </select>
                             </div>
                         </div>
@@ -125,14 +128,14 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="inputCurrency">Local currency</label>
+                            <label for="language">Language</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="inputCurrency" class="custCol-text" id="inputCurrency">
+                                <select name="language" class="custCol-text" id="language">
                                 </select>
                             </div>
                         </div>
@@ -144,14 +147,33 @@
 
                     <div class="flexCol-3  borderRight custCol-border-secondary">
                         <div class="fieldItem">
-                            <label for="inputTimezone">Time zone</label>
+                            <label for="currency_code">Local currency</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 custCol-border-secondary">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <select name="inputTimezone" class="custCol-text" id="inputTimezone">
+                                <select name="currency_code" class="custCol-text" id="currency_code">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="time_zone">Time zone</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <select name="time_zone" class="custCol-text" id="time_zone">
                                 </select>
                             </div>
                         </div>
@@ -161,17 +183,216 @@
 
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-shipping">
-                SHIPPING
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ship_to_name">Ship to name</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="ship_to_name"
+                               id="ship_to_name"
+                               type="text"
+                               placeholder="Name"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ship_to_street">Ship to street</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="ship_to_street"
+                               id="ship_to_street"
+                               type="text"
+                               placeholder="Street"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ship_to_city">Ship to city</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="ship_to_city"
+                               id="ship_to_city"
+                               type="text"
+                               placeholder="City"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ship_to_state">Ship to state</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="ship_to_state"
+                               id="ship_to_state"
+                               type="text"
+                               placeholder="State"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ship_to_postal_code">Ship to postal code</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="ship_to_postal_code"
+                               id="ship_to_postal_code"
+                               type="text"
+                               placeholder="Postal code"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ship_to_country">Ship to country</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="ship_to_country"
+                               id="ship_to_country"
+                               type="text"
+                               placeholder="Country"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
+
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-store">
-                STORE
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="term_conditions">Terms and Conditions</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <textarea name="terms_conditions" id="terms_conditions" rows="6" class="fieldItem-textarea custCol-text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="refund_policy">Refund policy</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <textarea id="refund_policy" name="refund_policy" rows="6" class="fieldItem-textarea custCol-text"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-blocked">
                 BLOCKED
             </div>
             <div class="flexCol-12 flex-border hide js-tabTarg js-advanced">
-                ADVANCED
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="notifications">Enable notifications</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <input type="checkbox" name="notifications" id="notifications">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="ssl">Enable SSL</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <input type="checkbox" name="ssl" id="ssl">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="flexRow custCol-border-secondary">
+
+                    <div class="flexCol-3  borderRight custCol-border-secondary">
+                        <div class="fieldItem">
+                            <label for="libbitcoin_server">Libbitcoin server address</label>
+                        </div>
+                    </div>
+
+                    <div class="flexCol-9 custCol-border-secondary">
+                        <input name="libbitcoin_server"
+                               id="libbitcoin_server"
+                               type="text"
+                               placeholder="Server IP:PORT"
+                               class="fieldItem custCol-text"
+                               value="">
+                    </div>
+
+                </div>
             </div>
+        </form>
         </div>
 
 </div>

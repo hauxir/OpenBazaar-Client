@@ -5,6 +5,7 @@ var __ = require('underscore'),
     loadTemplate = require('../utils/loadTemplate'),
     chosen = require('../utils/chosen.jquery.min.js'),
     timezonesModel = require('../models/timezonesMd'),
+    languagesModel = require('../models/languagesMd.js'),
     countriesModel = require('../models/countriesMd');
 
 module.exports = Backbone.View.extend({
@@ -43,7 +44,6 @@ module.exports = Backbone.View.extend({
   render: function(){
     var self = this;
     $('#content').html(self.$el);
-    self.setCustomStyles();
     loadTemplate('./js/templates/settings.html', function(loadedTemplate) {
       self.$el.html(loadedTemplate(self.model.toJSON()));
       self.setFormValues();
@@ -51,10 +51,16 @@ module.exports = Backbone.View.extend({
       var avatar = user.avatar_hash;
       $("#inputName").val(user.name);
       $("#inputHandle").val(user.handle);
-      $("#inputBtcAddress").val(user.bitcoinAddress);
-      $("#inputCurrency").val(user.currencyCode);
+      $("#refund_address").val(user.bitcoinAddress);
+      $("#currency_code").val(user.currency_code);
       $("#inputCountry").val(user.country);
       $("#inputTimezone").val(user.timezone);
+      $("#notifications").attr("checked",user.notifications);
+      $("#libbitcoin_server").val(user.libbitcoin_server);
+      $("#ssl").attr("checked",user.ssl);
+      $("#refund_policy").val(user.refund_policy);
+      $("#terms_conditions").val(user.terms_conditions);
+      console.log(user);
     });
     return this;
   },
@@ -62,11 +68,14 @@ module.exports = Backbone.View.extend({
   setFormValues: function(){
     var countries = new countriesModel();
     var timezones = new timezonesModel();
+    var languages = new languagesModel();
     var countryList = countries.get('countries');
     var timezoneList = timezones.get('timezones');
-    var country = this.$el.find('#inputCountry');
-    var currency = this.$el.find('#inputCurrency');
-    var timezone = this.$el.find('#inputTimezone');
+    var languageList = languages.get('languages');
+    var country = this.$el.find('#country');
+    var currency = this.$el.find('#currency_code');
+    var timezone = this.$el.find('#time_zone');
+    var language = this.$el.find('#language');
     __.each(countryList, function(c, i){
       country.append('<option value="'+c.dataName+'">'+c.name+'</option>');
       currency.append('<option value="'+c.code+'">'+c.currency+'</option>');
@@ -74,37 +83,9 @@ module.exports = Backbone.View.extend({
     __.each(timezoneList, function(t, i){
       timezone.append('<option value="'+t.offset+'">'+t.name+'</option>');
     });
-  },
-
-  setCustomStyles: function() {
-    var self = this;
-    //only do the following if page has been set in the model
-    if(this.model.get('page')){
-      var customStyleTag = document.getElementById('customStyle') || document.createElement('style');
-      customStyleTag.setAttribute('id', 'customStyle');
-      customStyleTag.innerHTML =
-          "#ov1 .userPage .custCol-background, #ov1 .userPage.body { background-color: " + this.model.get('page').profile.background_color + ";}" +
-          "#ov1 .userPage .custCol-primary-light { transition: background-color .3s cubic-bezier(0, 0, 0.0, 1);  background-color: " + this.shadeColor2(this.model.get('page').profile.primary_color, 0.04) + ";}" +
-          "#ov1 .userPage .custCol-primary, #ov1 .userPage .chosen-drop, #ov1 .userPage .no-results { transition: background-color .3s cubic-bezier(0, 0, 0.0, 1); background-color: " + this.model.get('page').profile.primary_color + ";}" +
-          "#ov1 .userPage .btn-tab.active { transition: background-color .3s cubic-bezier(0, 0, 0.0, 1); background-color: " + this.model.get('page').profile.primary_color + ";}" +
-          "#ov1 .userPage .custCol-secondary { transition: background-color .3s cubic-bezier(0, 0, 0.0, 1); background-color: " + this.model.get('page').profile.secondary_color + ";}" +
-          "#ov1 .userPage .custCol-border-secondary { border-color: " + this.model.get('page').profile.secondary_color + " !important;}" +
-          "#ov1 .userPage .radioLabel:before { border-color: " + this.model.get('page').profile.text_color + " !important;}" +
-          "#ov1 .userPage input[type='radio'].fieldItem:checked + label:before { background: " + this.model.get('page').profile.text_color + " !important;}" +
-          "#ov1 .userPage .custCol-text::-webkit-input-placeholder { color: " + this.model.get('page').profile.text_color + " !important;}" +
-          "#ov1 .userPage .chosen-choices { background-color: " + this.shadeColor2(this.model.get('page').profile.primary_color, 0.04) + "; border: 0; background-image: none; box-shadow: none; padding: 5px 7px}" +
-          "#ov1 .userPage .search-choice { background-color: " + this.model.get('page').profile.secondary_color + "; background-image: none; border: none; padding: 10px; color: " + this.model.get('page').profile.text_color + " ; font-size: 13px; box-shadow: none; border-radius: 3px;}" +
-          "#ov1 .userPage .chosen-results li { border-bottom: solid 1px " + this.model.get('page').profile.secondary_color + "}" +
-          "#ov1 .userPage .custCol-text, .search-field input { color: " + this.model.get('page').profile.text_color + "!important;}";
-
-      document.body.appendChild(customStyleTag);
-      //set custom color input values
-      self.$el.find('.js-customizeColorInput').each(function(){
-        var newColor = self.model.get('page').profile[$(this).attr('id')];
-        $(this).val(newColor);
-        $(this).closest('.positionWrapper').find('.js-customizeColor').css('background-color', newColor);
-      });
-    }
+    __.each(languageList, function(l, i){
+      language.append('<option value="'+l.langCode+'">'+l.langName+'</option>');
+    });
   },
 
   shadeColor2: function shadeColor2(color, percent) {
@@ -141,11 +122,28 @@ module.exports = Backbone.View.extend({
   },
 
   cancelClick: function(e){
-      alert("CANCEL");
+      location.reload();
   },
 
   saveClick: function(e){
-      alert("SAVE");
-  }
+        var self = this;
+        var formData = new FormData(this.$el.find('#settingsForm')[0]);
+        var server = self.options.userModel.get('server_url');
+        $.ajax({
+                type: "POST",
+                url: server + "settings",
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(jqXHR, status, errorThrown){
+                    console.log(jqXHR);
+                    console.log(status);
+                    console.log(errorThrown);
+                }
+        });
+    }
 
 });
