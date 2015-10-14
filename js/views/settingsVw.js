@@ -1,7 +1,7 @@
 var __ = require('underscore'),
     Backbone = require('backbone'),
     $ = require('jquery'),
-    userProfileModel = require('../models/userProfile'),
+    userProfileModel = require('../models/userProfileMd'),
     loadTemplate = require('../utils/loadTemplate'),
     chosen = require('../utils/chosen.jquery.min.js'),
     timezonesModel = require('../models/timezonesMd'),
@@ -25,7 +25,7 @@ module.exports = Backbone.View.extend({
     var self = this;
     this.options = options || {};
     this.userProfile = new userProfileModel();
-    this.userProfile.urlRoot = options.userModel.get('server') + "profile";
+    this.userProfile.urlRoot = options.userModel.get('server_url') + "profile";
     this.model = new Backbone.Model();
     this.userProfile.fetch({
       data: $.param({'id': this.pageID}),
