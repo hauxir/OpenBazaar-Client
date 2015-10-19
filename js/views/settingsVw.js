@@ -5,6 +5,7 @@ var __ = require('underscore'),
     loadTemplate = require('../utils/loadTemplate'),
     timezonesModel = require('../models/timezonesMd'),
     languagesModel = require('../models/languagesMd.js'),
+    personListView = require('./userListVw'),
     countriesModel = require('../models/countriesMd');
 
 module.exports = Backbone.View.extend({
@@ -28,6 +29,7 @@ module.exports = Backbone.View.extend({
     this.userProfile.urlRoot = options.userModel.get('server_url') + "profile";
     this.model = new Backbone.Model();
     this.pageID = "";
+    this.subViews = [];
     this.userProfile.fetch({
       data: $.param({'id': this.pageID}),
       success: function(model){
@@ -47,8 +49,18 @@ module.exports = Backbone.View.extend({
     loadTemplate('./js/templates/settings.html', function(loadedTemplate) {
       self.$el.html(loadedTemplate(self.model.toJSON()));
       self.setFormValues();
+      self.renderBlocked(self.model.get("user").blocked);
     });
     return this;
+  },
+
+  renderBlocked: function (model) {
+    "use strict";
+    this.blockedList = new personListView({model: model,
+                                           el: '.js-list1',
+                                           title: "No one blocked Yet",
+                                           message: ""});
+    this.subViews.push(this.followerList);
   },
 
   setFormValues: function(){
@@ -135,6 +147,6 @@ module.exports = Backbone.View.extend({
                     console.log(errorThrown);
                 }
         });
-    }
+  }
 
 });
