@@ -1,9 +1,10 @@
 <div class="mainContainer marginTop50">
 
 <div class="topThumb"
-     style="background-image: url(<%- ob.user.server %>get_image?hash=<%- ob.page.profile.avatar_hash %>)"></div>
+     style="
+     background-image: url(<%- ob.user.server_url %>get_image?hash=<%- ob.page.profile.avatar_hash %>);">
+</div>
 
-<div class="stuff"></div>
 <div class="smPageHeader">
     <div class="navEnd pad15">
         <span class="allCaps">Settings</span>
@@ -32,7 +33,7 @@
 </div>
 
 <div class="flexContainer flex-border">
-<div class="flexRow border0 marginBottom50 minHeight650 g">
+<div class="flexRow border0 marginBottom50 minHeight650 formChecked">
     <div class="flexRow flexExpand">
         <form id="settingsForm" name="settingsForm">
         <div class="flexCol-12 flex-border js-tabTarg js-general">
@@ -48,9 +49,10 @@
                     <div class="flexCol-9 ">
                         <input name="name"
                                type="text"
-                               id="inputName"
+                               id="name"
                                placeholder="Your name"
                                class="fieldItem "
+                               required
                                value="<%= ob.page.profile.name %>">
                     </div>
 
@@ -60,12 +62,12 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="inputSku">Avatar</label>
+                            <label for="avatar">Avatar</label>
                         </div>
                     </div>
 
                     <div class="flexCol-9 ">
-                        <input class="fieldItem  filestuff" type="file" name="img">
+                        <input class="fieldItem" type="file" name="avatar" id="avatar">
                     </div>
 
                 </div>
@@ -84,6 +86,8 @@
                                id="handle"
                                placeholder="@john"
                                class="fieldItem "
+                               pattern="@[a-zA-Z0-9]+"
+                               required
                                value="<%= ob.page.profile.handle %>">
                     </div>
 
@@ -104,7 +108,9 @@
                                type="text"
                                id="refund_address"
                                placeholder="Address"
-                               class="fieldItem "
+                               class="fieldItem"
+                               required
+                               pattern=".{26,}"
                                value="<%= ob.user.refund_address %>">
                     </div>
 
@@ -293,12 +299,12 @@
                     </div>
 
                     <div class="flexCol-9 ">
-                        <input name="ship_to_country"
-                               id="ship_to_country"
-                               type="text"
-                               placeholder="Country"
-                               class="fieldItem "
-                               value="<%= ob.user.ship_to_postal_country%>">
+                        <div class="fieldItem padding0">
+                            <div class="fieldItem-selectWrapper noIcon">
+                                <select name="ship_to_country" class="" id="ship_to_country">
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -366,7 +372,11 @@
                     <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <input type="checkbox" name="notifications" id="notifications" checked="<%= ob.user.notifications%>">
+                                <input type="checkbox" name="notifications" id="notifications"
+                                    <% if(ob.user.notifications) { %>
+                                    checked="checked"
+                                    <% } %>
+                                value="true">
                             </div>
                         </div>
                     </div>
@@ -383,7 +393,11 @@
                     <div class="flexCol-9 ">
                         <div class="fieldItem padding0">
                             <div class="fieldItem-selectWrapper noIcon">
-                                <input type="checkbox" name="ssl" id="ssl" checked="<%= ob.user.ssl%>">
+                                <input type="checkbox" name="ssl" id="ssl"
+                                    <% if(ob.user.ssl) { %>
+                                    checked="checked"
+                                    <% } %>
+                                    value="true">
                             </div>
                         </div>
                     </div>
@@ -403,6 +417,7 @@
                                type="text"
                                placeholder="Server IP:PORT"
                                class="fieldItem "
+                               pattern="[.a-z0-9,A-Z]+|[.a-z0-9,A-Z]+:[0-9]+"
                                value="<%= ob.user.libbitcoin_server %>">
                     </div>
 
