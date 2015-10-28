@@ -335,8 +335,124 @@ module.exports = Backbone.View.extend({
   },
 
   settingsDone: function(e){
+
     "use strict";
     this.model.set('beenSet',true);
+
+    //TODO: model data should be saved to the API.
+
+    var server = this.model.get('server_url');
+    var profileFormData = new FormData();
+    var settingsFormData = new FormData();
+    var uploadImageFormData = new FormData();
+
+    if(this.model.get('country')!=""){
+       profileFormData.append("location",this.model.get('country'));
+    }
+
+
+    console.log(this.model);
+
+    $.each(this.model.attributes,
+            function(i,el) {
+                if(i == "country") {
+                    profileFormData.append("location",el);
+                }
+                if(i == "name" || i == "handle") {
+                    profileFormData.append(i,el);
+                } else if(i == "avatar") {
+                   // uploadImageFormData.append(id,$(el)[0].files[0]);
+                } else {
+                    settingsFormData.append(i,el);
+                }
+
+            }
+        );
+
+
+
+    if(this.model.get('language')!=""){
+       settingsFormData.append("language",this.model.get('language'));
+    }
+    if(this.model.get('currency_code')!=""){
+       settingsFormData.append("currency_code",this.model.get('currency_code'));
+    }
+
+    if(this.model.get('time_zone')!=""){
+       settingsFormData.append("time_zone",this.model.get('time_zone'));
+    }
+
+    //handle
+    //image
+
+   var submit = function(img_hash) {
+            if(img_hash) {
+                profileFormData.append("avatar",img_hash);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: server + "settings",
+                contentType: false,
+                processData: false,
+                data: settingsFormData,
+                success: function(data) {
+                    if(JSON.parse(data).success) {
+                        $.ajax({
+                            type: "POST",
+                            url: server + "profile",
+                            contentType: false,
+                            processData: false,
+                            data: profileFormData,
+                            success: function(data) {
+                                if(img_hash) {
+                                    $(".topThumb").css("background-image",
+                                        "url(" + server + "get_image?hash=" +
+                                                 img_hash + ")");
+                                    $("#avatar").val("");
+                                }
+                                alert("SAVED!");
+                            },
+                            error: function(jqXHR, status, errorThrown){
+                                console.log(jqXHR);
+                                console.log(status);
+                                console.log(errorThrown);
+                            }
+                        });
+                    }
+                },
+                error: function(jqXHR, status, errorThrown){
+                    console.log(jqXHR);
+                    console.log(status);
+                    console.log(errorThrown);
+                }
+            });
+
+        };
+
+        //Lets upload the image first, if there is one
+        //to get the hash
+        //if($("#avatar").val()) {
+          if(false){
+            $.ajax({
+                type: "POST",
+                url: server + "upload_image",
+                contentType: false,
+                processData: false,
+                data: uploadImageFormData,
+                success: function(data) {
+                    submit(JSON.parse(data).image_hashes[0]);
+                },
+                error: function(jqXHR, status, errorThrown){
+                    console.log(jqXHR);
+                    console.log(status);
+                    console.log(errorThrown);
+                }
+            });
+
+        } else { //Otherwise lets just submit right away
+            submit();
+        }
     this.$el.find('.js-homeModal').hide();
     
     // Start application walkthrough (coming soon once I have better designs)
