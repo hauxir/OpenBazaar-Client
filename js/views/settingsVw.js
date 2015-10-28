@@ -158,6 +158,8 @@ module.exports = Backbone.View.extend({
                     profileFormData.append(id,$(el).val());
                 } else if(id == "avatar") {
                     uploadImageFormData.append(id,$(el)[0].files[0]);
+                } else if($(el).attr("type") == "checkbox") {
+                    settingsFormData.append(id,$(el).is(":checked"));
                 } else {
                     settingsFormData.append(id,$(el).val());
                 }
