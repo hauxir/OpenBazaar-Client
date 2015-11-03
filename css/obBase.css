@@ -90,10 +90,10 @@ input[type="checkbox"] {
 form {
   margin: 0;
 }
+
 #settingsForm {
     width:100%;
 }
-
 
 
 /*========== structure classes ==========*/
@@ -424,6 +424,7 @@ form {
   height: 58px;
   width: 58px;
   transition: all .1s cubic-bezier(0, 0, 0.5, 1);
+}
 
 .thumbnail-small {
   border-radius: 2px;
@@ -433,19 +434,41 @@ form {
 
 .row10 {
   margin-bottom: 10px;
->>>>>>> settings page layout almost done
 }
 
 .row5 {
   margin-bottom: 5px;
 }
 
-.row10 {
-  margin-bottom: 10px;
-}
-
 .row20 {
   margin-bottom: 20px;
+}
+
+.topThumb {
+  width:55px;
+  height:55px;
+  background-size: cover;
+  top: 24px;
+  content: " ";
+  left: 30px;
+  position: absolute;
+  z-index: 3;
+}
+
+.smPageHeader {
+  background-color: rgb(6,55,83);
+  height: 85px;
+  line-height: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+.smPageHeader div {
+  top: 35px;
+  padding-left: 100px;
+  padding-right: 15px;
+  position: relative;
+  background-color: rgb(33, 81, 117);
 }
 
 .rowTop20 {
@@ -1595,25 +1618,6 @@ input[type="checkbox"].fieldItem:checked + label:before {
   box-shadow: inset 0px -130px 112px -52px rgba(25,25,25,.65);
 }
 
-.topThumb {
-  width:55px;
-  height:55px;
-  background-size: cover;
-  top: 24px;
-  content: " ";
-  left: 30px;
-  position: absolute;
-  z-index: 3;
-}
-
-.smPageHeader {
-  background-color: rgb(6,55,83);
-  height: 85px;
-  line-height: 50px;
-  position: relative;
-  z-index: 2;
-}
-
 .shadow-inner1 {
   /*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0)), color-stop(75%,rgba(0,0,0,.75)));*/
   box-shadow: inset 0px -400px 222px -282px rgba(25,25,25,1);
@@ -1621,16 +1625,18 @@ input[type="checkbox"].fieldItem:checked + label:before {
 
 .shadow-inner1-strong {
   box-shadow: inset 0px -400px 222px -182px rgba(25,25,25,.85);
+}
 
-.smPageHeader div {
-  background-color: #215175;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  top: 35px;
-  height: 50px;
-  padding-left: 100px;
-  position: relative;
-  z-index: 1;
+smPageHeader div {
+    background-color: #215175;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    top: 35px;
+    height: 50px;
+    padding-left: 100px;
+    position: relative;
+    z-index: 1;
+
 }
 
 .shadow-inner1 {
@@ -2293,6 +2299,7 @@ input[type="checkbox"].fieldItem:checked + label:before {
 #ov1  .cursorDefault {
   cursor: default;
 }
+
 #ov1  .borderBottomLeftRaidus3 {
   border-bottom-left-radius: 3px !important;
 }

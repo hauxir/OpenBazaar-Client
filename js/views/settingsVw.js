@@ -19,7 +19,9 @@ module.exports = Backbone.View.extend({
     'click .js-blockedTab': 'blockedClick',
     'click .js-advancedTab': 'advancedClick',
     'click .js-cancelSettings': 'cancelClick',
-    'click .js-saveSettings': 'saveClick'
+    'click .js-saveSettings': 'saveClick',
+    'blur input': 'validateInput',
+    'blur textarea': 'validateInput'
   },
 
   initialize: function(options){
@@ -33,7 +35,7 @@ module.exports = Backbone.View.extend({
     this.userProfile.fetch({
       data: $.param({'id': this.pageID}),
       success: function(model){
-        self.model.set({user: self.options.userModel.toJSON(), page: model.toJSON(), ownPage: self.options.ownPage});
+        self.model.set({user: self.options.userModel.toJSON(), page: model.toJSON()});
         self.render();
       },
       error: function(model, response){
@@ -46,6 +48,7 @@ module.exports = Backbone.View.extend({
   render: function(){
     var self = this;
     $('#content').html(self.$el);
+    this.errorModal = $('.js-messageModal');
     loadTemplate('./js/templates/settings.html', function(loadedTemplate) {
       self.$el.html(loadedTemplate(self.model.toJSON()));
       self.setFormValues();
@@ -60,7 +63,14 @@ module.exports = Backbone.View.extend({
                                            el: '.js-list1',
                                            title: "No one blocked Yet",
                                            message: ""});
-    this.subViews.push(this.followerList);
+    this.subViews.push(this.blockedList);
+  },
+
+  showErrorModal: function(errorTitle, errorMessage) {
+    "use strict";
+    this.errorModal.removeClass('fadeOut');
+    this.errorModal.find('.js-messageModal-title').text(errorTitle);
+    this.errorModal.find('.js-messageModal-message').html(errorMessage);
   },
 
   setFormValues: function(){
@@ -75,8 +85,15 @@ module.exports = Backbone.View.extend({
     var currency = this.$el.find('#currency_code');
     var timezone = this.$el.find('#time_zone');
     var language = this.$el.find('#language');
-    var user = this.model.attributes.user;
+    var user = this.model.get('user');
     var avatar = user.avatar_hash;
+
+    var ship_country_str = "";
+    var country_str = "";
+    var currency_str = "";
+    var timezone_str = "";
+    var language_str = "";
+
     __.each(countryList, function(c, i){
       var country_option = $('<option value="'+c.dataName+'">'+c.name+'</option>');
       var ship_country_option = $('<option value="'+c.dataName+'">'+c.name+'</option>');
@@ -84,20 +101,35 @@ module.exports = Backbone.View.extend({
       currency_option.attr("selected",user.currency_code== c.code);
       country_option.attr("selected",user.country == c.dataName);
       ship_country_option.attr("selected",user.ship_to_country== c.dataName);
-      ship_country.append(ship_country_option);
-      currency.append(currency_option);
-      country.append(country_option);
+
+      ship_country_str += ship_country_option[0].outerHTML;
+      currency_str += currency_option[0].outerHTML;
+      country_str += country_option[0].outerHTML;
     });
+
     __.each(timezoneList, function(t, i){
       var timezone_option = $('<option value="'+t.offset+'">'+t.name+'</option>');
       timezone_option.attr("selected",user.time_zone == t.offset);
-      timezone.append(timezone_option);
+      timezone_str += timezone_option[0].outerHTML;
     });
+
     __.each(languageList, function(l, i){
         var language_option = $('<option value="'+l.langCode+'">'+l.langName+'</option>');
         language_option.attr("selected",user.language == l.langCode);
-        language.append(language_option);
+        language_str += language_option[0].outerHTML;
     });
+
+    ship_country.html(ship_country_str);
+    currency.html(currency_str);
+    country.html(country_str);
+    timezone.html(timezone_str);
+    language.html(language_str);
+  },
+
+  validateInput: function(e) {
+    "use strict";
+    e.target.checkValidity();
+    $(e.target).closest('.flexRow').addClass('formChecked');
   },
 
   tabClick: function(activeTab, showContent){
@@ -129,7 +161,7 @@ module.exports = Backbone.View.extend({
   },
 
   cancelClick: function(e){
-      location.reload();
+      Backbone.history.loadUrl();
   },
 
   saveClick: function(e){
@@ -137,8 +169,9 @@ module.exports = Backbone.View.extend({
         var server = self.options.userModel.get('server_url');
 
         var settings_form = this.$el.find("#settingsForm");
+        settings_form.addClass('formChecked');
         if(!settings_form[0].checkValidity()) {
-            alert("PLEASE FIX ERRORS");
+            self.showErrorModal("Errors in form", "Please fix all errors in the form before saving again");
             return;
         }
 
@@ -193,12 +226,13 @@ module.exports = Backbone.View.extend({
                                                  img_hash + ")");
                                     $("#avatar").val("");
                                 }
-                                alert("SAVED!");
+                                self.showErrorModal("Saved", "Your settings have been successfully saved");
                             },
                             error: function(jqXHR, status, errorThrown){
                                 console.log(jqXHR);
                                 console.log(status);
                                 console.log(errorThrown);
+                                self.showErrorModal("Server error", "Profile API endpoint return an error");
                             }
                         });
                     }
@@ -207,6 +241,7 @@ module.exports = Backbone.View.extend({
                     console.log(jqXHR);
                     console.log(status);
                     console.log(errorThrown);
+                    self.showErrorModal("Server error", "Settings API endpoint return an error");
                 }
             });
 
@@ -229,6 +264,7 @@ module.exports = Backbone.View.extend({
                     console.log(jqXHR);
                     console.log(status);
                     console.log(errorThrown);
+                    self.showErrorModal("Server error", "Failed to upload image");
                 }
             });
 

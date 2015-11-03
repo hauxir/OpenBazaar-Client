@@ -33,7 +33,7 @@
 </div>
 
 <div class="flexContainer flex-border">
-<div class="flexRow border0 marginBottom50 minHeight650 formChecked">
+<div class="flexRow border0 marginBottom50 minHeight650">
     <div class="flexRow flexExpand">
         <form id="settingsForm" name="settingsForm">
         <div class="flexCol-12 flex-border js-tabTarg js-general">
@@ -42,7 +42,7 @@
 
                     <div class="flexCol-3 borderRight ">
                         <div class="fieldItem">
-                            <label for="name">Name</label>
+                            <label for="name"><%= polyglot.t('Name') %></label>
                         </div>
                     </div>
 
@@ -50,7 +50,7 @@
                         <input name="name"
                                type="text"
                                id="name"
-                               placeholder="Your name"
+                               placeholder="<%= polyglot.t('Your name') %>"
                                class="fieldItem "
                                required
                                value="<%= ob.page.profile.name %>">
@@ -62,7 +62,7 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="avatar">Avatar</label>
+                            <label for="avatar"><%= polyglot.t('Avatar') %></label>
                         </div>
                     </div>
 
@@ -76,7 +76,7 @@
 
                     <div class="flexCol-3 borderRight ">
                         <div class="fieldItem">
-                            <label for="handle">Handle</label>
+                            <label for="handle"><%= polyglot.t('Handle') %></label>
                         </div>
                     </div>
 
@@ -99,7 +99,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="refund_address">Bitcoin return address</label>
+                            <label for="refund_address">
+                                <%= polyglot.t('Bitcoin return address') %>
+                            </label>
                         </div>
                     </div>
 
@@ -107,7 +109,7 @@
                         <input name="refund_address"
                                type="text"
                                id="refund_address"
-                               placeholder="Address"
+                               placeholder="<%= polyglot.t('Address') %>"
                                class="fieldItem"
                                required
                                pattern=".{26,}"
@@ -120,7 +122,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="country">Country</label>
+                            <label for="country">
+                                <%= polyglot.t('Country') %>
+                            </label>
                         </div>
                     </div>
 
@@ -139,7 +143,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="language">Language</label>
+                            <label for="language">
+                                <%= polyglot.t('Language') %>
+                            </label>
                         </div>
                     </div>
 
@@ -158,7 +164,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="currency_code">Local currency</label>
+                            <label for="currency_code">
+                                <%= polyglot.t('Local currency') %>
+                            </label>
                         </div>
                     </div>
 
@@ -177,7 +185,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="time_zone">Time zone</label>
+                            <label for="time_zone">
+                                <%= polyglot.t('Time zone') %>
+                            </label>
                         </div>
                     </div>
 
@@ -199,7 +209,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ship_to_name">Ship to name</label>
+                            <label for="ship_to_name">
+                                <%= polyglot.t('Ship to name') %>
+                            </label>
                         </div>
                     </div>
 
@@ -207,7 +219,7 @@
                         <input name="ship_to_name"
                                id="ship_to_name"
                                type="text"
-                               placeholder="Name"
+                               placeholder="<%= polyglot.t('Name') %>"
                                class="fieldItem "
                                value="<%= ob.user.ship_to_name%>">
                     </div>
@@ -218,7 +230,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ship_to_street">Ship to street</label>
+                            <label for="ship_to_street">
+                                <%= polyglot.t('Ship to street') %>
+                            </label>
                         </div>
                     </div>
 
@@ -226,7 +240,7 @@
                         <input name="ship_to_street"
                                id="ship_to_street"
                                type="text"
-                               placeholder="Street"
+                               placeholder="<%= polyglot.t('Street') %>"
                                class="fieldItem "
                                value="<%= ob.user.ship_to_street%>">
                     </div>
@@ -237,7 +251,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ship_to_city">Ship to city</label>
+                            <label for="ship_to_city">
+                                <%= polyglot.t('Ship to city') %>
+                            </label>
                         </div>
                     </div>
 
@@ -245,7 +261,7 @@
                         <input name="ship_to_city"
                                id="ship_to_city"
                                type="text"
-                               placeholder="City"
+                               placeholder="<%= polyglot.t('City') %>"
                                class="fieldItem "
                                value="<%= ob.user.ship_to_city%>">
                     </div>
@@ -256,7 +272,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ship_to_state">Ship to state</label>
+                            <label for="ship_to_state">
+                                <%= polyglot.t('Ship to state') %>
+                            </label>
                         </div>
                     </div>
 
@@ -264,7 +282,7 @@
                         <input name="ship_to_state"
                                id="ship_to_state"
                                type="text"
-                               placeholder="State"
+                               placeholder="<%= polyglot.t('State') %>"
                                class="fieldItem "
                                value="<%= ob.user.ship_to_state%>">
                     </div>
@@ -275,7 +293,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ship_to_postal_code">Ship to postal code</label>
+                            <label for="ship_to_postal_code">
+                                <%= polyglot.t('Ship to postal code') %>
+                            </label>
                         </div>
                     </div>
 
@@ -283,7 +303,7 @@
                         <input name="ship_to_postal_code"
                                id="ship_to_postal_code"
                                type="text"
-                               placeholder="Postal code"
+                               placeholder="<%= polyglot.t('Postal code') %>"
                                class="fieldItem "
                                value="<%= ob.user.ship_to_postal_code%>">
                     </div>
@@ -294,7 +314,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ship_to_country">Ship to country</label>
+                            <label for="ship_to_country">
+                                <%= polyglot.t('Ship to country') %>
+                            </label>
                         </div>
                     </div>
 
@@ -315,7 +337,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="term_conditions">Terms and Conditions</label>
+                            <label for="term_conditions">
+                                <%= polyglot.t('Terms and conditions') %>
+                            </label>
                         </div>
                     </div>
 
@@ -332,7 +356,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="refund_policy">Refund policy</label>
+                            <label for="refund_policy">
+                                <%= polyglot.t('Refund policy') %>
+                            </label>
                         </div>
                     </div>
 
@@ -365,7 +391,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="notifications">Enable notifications</label>
+                            <label for="notifications">
+                                <%= polyglot.t('Enable notifications') %>
+                            </label>
                         </div>
                     </div>
 
@@ -386,7 +414,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="ssl">Enable SSL</label>
+                            <label for="ssl">
+                                <%= polyglot.t('Enable SSL') %>
+                            </label>
                         </div>
                     </div>
 
@@ -407,7 +437,9 @@
 
                     <div class="flexCol-3  borderRight ">
                         <div class="fieldItem">
-                            <label for="libbitcoin_server">Libbitcoin server address</label>
+                            <label for="libbitcoin_server">
+                                <%= polyglot.t('Libbitcoin server address') %>
+                            </label>
                         </div>
                     </div>
 
@@ -415,7 +447,7 @@
                         <input name="libbitcoin_server"
                                id="libbitcoin_server"
                                type="text"
-                               placeholder="Server IP:PORT"
+                               placeholder="<%= polyglot.t('Server IP:PORT') %>"
                                class="fieldItem "
                                pattern="[.a-z0-9,A-Z]+|[.a-z0-9,A-Z]+:[0-9]+"
                                value="<%= ob.user.libbitcoin_server %>">
