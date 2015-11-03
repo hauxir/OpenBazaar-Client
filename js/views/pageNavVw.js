@@ -314,7 +314,8 @@ module.exports = Backbone.View.extend({
     var reader = new FileReader();
     reader.onload = function (e) {
       self.$el.find('.js-avatarPreview').css('background', 'url(' + e.target.result + ') 50% 50% / cover no-repeat');
-      //self.model.set('tempAvatar', e.target.result);
+      self.model.set('tempAvatar', e.target.result);
+
       //TODO: add canvas resizing here
     };
     reader.readAsDataURL($(e.target)[0].files[0]);
@@ -324,9 +325,7 @@ module.exports = Backbone.View.extend({
 
     "use strict";
     this.model.set('beenSet',true);
-
-    //TODO: model data should be saved to the API.
-
+   // var self = this;
     var server = this.model.get('server_url');
     var profileFormData = new FormData();
     var settingsFormData = new FormData();
@@ -336,9 +335,6 @@ module.exports = Backbone.View.extend({
        profileFormData.append("location",this.model.get('country'));
     }
 
-
-    console.log(this.model);
-
     $.each(this.model.attributes,
             function(i,el) {
                 if(i == "country") {
@@ -346,30 +342,15 @@ module.exports = Backbone.View.extend({
                 }
                 if(i == "name" || i == "handle") {
                     profileFormData.append(i,el);
-                } else if(i == "avatar") {
-                   // uploadImageFormData.append(id,$(el)[0].files[0]);
+                } else if(i == "tempAvatar") {
+                     uploadImageFormData.append("avatar",el);
+
                 } else {
                     settingsFormData.append(i,el);
                 }
 
             }
         );
-
-
-
-    if(this.model.get('language')!=""){
-       settingsFormData.append("language",this.model.get('language'));
-    }
-    if(this.model.get('currency_code')!=""){
-       settingsFormData.append("currency_code",this.model.get('currency_code'));
-    }
-
-    if(this.model.get('time_zone')!=""){
-       settingsFormData.append("time_zone",this.model.get('time_zone'));
-    }
-
-    //handle
-    //image
 
    var submit = function(img_hash) {
             if(img_hash) {
@@ -392,10 +373,13 @@ module.exports = Backbone.View.extend({
                             data: profileFormData,
                             success: function(data) {
                                 if(img_hash) {
-                                    $(".topThumb").css("background-image",
-                                        "url(" + server + "get_image?hash=" +
-                                                 img_hash + ")");
-                                    $("#avatar").val("");
+                                    //TODO store img_hash for all images of profile
+                                    //self.model.set("avatar_hash",img_hash);
+                                    //console.log("here we are");
+                                    //$(".topThumb").css("background-image",
+                                    //    "url(" + server + "get_image?hash=" +
+                                    //             img_hash + ")");
+                                    //("#avatar").val("");
                                 }
                                 alert("SAVED!");
                             },
@@ -418,8 +402,10 @@ module.exports = Backbone.View.extend({
 
         //Lets upload the image first, if there is one
         //to get the hash
-        //if($("#avatar").val()) {
-          if(false){
+
+
+
+        if(this.model.get('tempAvatar') != "") {
             $.ajax({
                 type: "POST",
                 url: server + "upload_image",
