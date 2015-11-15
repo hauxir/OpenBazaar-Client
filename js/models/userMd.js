@@ -21,6 +21,7 @@ module.exports = Backbone.Model.extend({
     refund_address: "", //buyer’s refund address (string)
     currency_code: "BTC", //may either be “btc” or a currency from this list. (formatted string)
     country: "UNITED_STATES", //the location of the user. must be a formatted string from this list. (formatted string)
+
     language: "en", //user�s prefered language (string)
     time_zone: "", //the user�s time zone (string)
     notifications: true, //display notifications (�True� or �False�)
