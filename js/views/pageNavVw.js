@@ -365,10 +365,10 @@ var self = this;
         header= the hash of the header image. must have been previously uploaded using the upload_image api call. (40 character hex string)
       * */
 
-        var primaryColor = ''+ parseInt($($("label[for='"+themeId+"']")[0]).data('primary-color').replace("#","0x"));
-        var secondaryColor = ''+  parseInt($($("label[for='"+themeId+"']")[0]).data('secondary-color').replace("#","0x"));
-        var backgroundColor = ''+ parseInt($($("label[for='"+themeId+"']")[0]).data('background-color').replace("#","0x"));
-        var textColor = ''+  parseInt($($("label[for='"+themeId+"']")[0]).data('text-color').replace("#","0x"));
+        var primaryColor =  parseInt($($("label[for='"+themeId+"']")[0]).data('primary-color').replace("#","0x"));
+        var secondaryColor =   parseInt($($("label[for='"+themeId+"']")[0]).data('secondary-color').replace("#","0x"));
+        var backgroundColor =  parseInt($($("label[for='"+themeId+"']")[0]).data('background-color').replace("#","0x"));
+        var textColor =   parseInt($($("label[for='"+themeId+"']")[0]).data('text-color').replace("#","0x"));
         var header = $($("label[for='"+themeId+"']")[0]).data('header');
 
 
@@ -387,7 +387,7 @@ var self = this;
                     profileFormData.append("location",el);
                 }
                 if(i == "name" || i == "handle" || (themeSelected && (i == "primary_color" || i == "secondary_color" || i == "text_color"|| i =="background_color" ))) {
-                    profileFormData.append(i,el);
+                    profileFormData.append(i,""+el);
                 } else if(i == "tempAvatar") {
                     var imageURI = $('#avatarUploadDiv').cropit('export', {
                         type: 'image/jpeg',
