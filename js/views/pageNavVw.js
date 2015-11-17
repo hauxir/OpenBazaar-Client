@@ -351,15 +351,12 @@ module.exports = Backbone.View.extend({
     var uploadImageFormData = new FormData();
 
     var themeRadioButtons = $('input[name=theme-selection]');
-    if($(themeRadioButtons.filter(':checked'))[0] !=undefined){
+    var themeSelected =   ($(themeRadioButtons.filter(':checked'))[0] !=undefined);
+    if(themeSelected){
        var themeId = $(themeRadioButtons.filter(':checked')[0]).attr('id');
 
-
-      /*profile:
-      * primary_color = hex color formatted in base 10. For example, 00FF00 should be sent as “65280” (string of base 10 formatted hex color)
-        secondary_color= same as primary color
-        text_color= same as primary color
-        background_color= same as primary color
+      /*from profile api call:
+        header= the hash of the header image. must have been previously uploaded using the upload_image api call. (40 character hex string)
       * */
 
         var primaryColor = $($("label[for='"+themeId+"']")[0]).data('primary-color');
@@ -367,6 +364,13 @@ module.exports = Backbone.View.extend({
         var backgroundColor = $($("label[for='"+themeId+"']")[0]).data('background-color');
         var textColor = $($("label[for='"+themeId+"']")[0]).data('text-color');
         var header = $($("label[for='"+themeId+"']")[0]).data('header');
+
+        console.log(primaryColor);
+        self.model.set('primary_color', primaryColor);
+        self.model.set('secondary_color', secondaryColor);
+        self.model.set('text_color', backgroundColor);
+        self.model.set('background_color', textColor);
+        //self.model.set('header', header);
 
     }
 
@@ -376,7 +380,7 @@ module.exports = Backbone.View.extend({
                 if(i == "country") {
                     profileFormData.append("location",el);
                 }
-                if(i == "name" || i == "handle") {
+                if(i == "name" || i == "handle" || (themeSelected && (i == "primary_color" || i == "secondary_color" || i == "text_color"|| i =="background_color" ))) {
                     profileFormData.append(i,el);
                 } else if(i == "tempAvatar") {
                     var imageURI = $('#avatarUploadDiv').cropit('export', {
@@ -387,9 +391,7 @@ module.exports = Backbone.View.extend({
                     if(imageURI) {
                         imageURI = imageURI.replace(/^data:image\/(png|jpeg);base64,/, "");
                         uploadImageFormData.append('image', imageURI);
-
                     }
-//                     uploadImageFormData.append("avatar",el);
                 } else {
                     settingsFormData.append(i,el);
                 }
