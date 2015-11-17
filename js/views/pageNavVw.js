@@ -344,7 +344,7 @@ module.exports = Backbone.View.extend({
 
 
     this.model.set('beenSet',true);
-    var self = this;
+var self = this;
     var server = this.model.get('serverUrl');
     var profileFormData = new FormData();
     var settingsFormData = new FormData();
@@ -356,16 +356,22 @@ module.exports = Backbone.View.extend({
        var themeId = $(themeRadioButtons.filter(':checked')[0]).attr('id');
 
       /*from profile api call:
+        primary_color = hex color formatted in base 10. For example, 00FF00 should be sent as “65280” (string of base 10 formatted hex color)
+        secondary_color= same as primary color
+        text_color= same as primary color
+        background_color= same as primary color
+
+
         header= the hash of the header image. must have been previously uploaded using the upload_image api call. (40 character hex string)
       * */
 
-        var primaryColor = $($("label[for='"+themeId+"']")[0]).data('primary-color');
-        var secondaryColor = $($("label[for='"+themeId+"']")[0]).data('secondary-color');
-        var backgroundColor = $($("label[for='"+themeId+"']")[0]).data('background-color');
-        var textColor = $($("label[for='"+themeId+"']")[0]).data('text-color');
+        var primaryColor = ''+ parseInt($($("label[for='"+themeId+"']")[0]).data('primary-color').replace("#","0x"));
+        var secondaryColor = ''+  parseInt($($("label[for='"+themeId+"']")[0]).data('secondary-color').replace("#","0x"));
+        var backgroundColor = ''+ parseInt($($("label[for='"+themeId+"']")[0]).data('background-color').replace("#","0x"));
+        var textColor = ''+  parseInt($($("label[for='"+themeId+"']")[0]).data('text-color').replace("#","0x"));
         var header = $($("label[for='"+themeId+"']")[0]).data('header');
 
-        console.log(primaryColor);
+
         self.model.set('primary_color', primaryColor);
         self.model.set('secondary_color', secondaryColor);
         self.model.set('text_color', backgroundColor);
