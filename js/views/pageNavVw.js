@@ -344,26 +344,32 @@ module.exports = Backbone.View.extend({
 
 
     this.model.set('beenSet',true);
-var self = this;
+    var self = this;
     var server = this.model.get('serverUrl');
     var profileFormData = new FormData();
     var settingsFormData = new FormData();
     var uploadImageFormData = new FormData();
 
+
+    if($('textarea#aboutInput').val() != ""){
+        self.model.set('about', $('textarea#aboutInput').val());
+    }
+
+    if($('#storeHandleInput').val() != "" && /^@/.test($('#storeHandleInput').val()) ){
+        self.model.set('handle', $('#storeHandleInput').val());
+    }
+
+    if($('#storeNameInput').val() != ""){
+        self.model.set('name', $('#storeNameInput').val());
+    }else if (self.model.get('name') == undefined){
+        //otherwise error since the profile api needs the name parameter and as of now it is not set in the userMd.js
+        self.model.set('name', "");
+    }
+
     var themeRadioButtons = $('input[name=theme-selection]');
     var themeSelected =   ($(themeRadioButtons.filter(':checked'))[0] !=undefined);
     if(themeSelected){
        var themeId = $(themeRadioButtons.filter(':checked')[0]).attr('id');
-
-      /*from profile api call:
-        primary_color = hex color formatted in base 10. For example, 00FF00 should be sent as “65280” (string of base 10 formatted hex color)
-        secondary_color= same as primary color
-        text_color= same as primary color
-        background_color= same as primary color
-
-
-        header= the hash of the header image. must have been previously uploaded using the upload_image api call. (40 character hex string)
-      * */
 
         var primaryColor =  parseInt($($("label[for='"+themeId+"']")[0]).data('primary-color').replace("#","0x"));
         var secondaryColor =   parseInt($($("label[for='"+themeId+"']")[0]).data('secondary-color').replace("#","0x"));
@@ -376,17 +382,18 @@ var self = this;
         self.model.set('secondary_color', secondaryColor);
         self.model.set('text_color', backgroundColor);
         self.model.set('background_color', textColor);
+        //TODO upload Image header
+        //From profile api : header= the hash of the header image. must have been previously uploaded using the upload_image api call. (40 character hex string)
         //self.model.set('header', header);
 
     }
-
 
     $.each(this.model.attributes,
             function(i,el) {
                 if(i == "country") {
                     profileFormData.append("location",el);
                 }
-                if(i == "name" || i == "handle" || (themeSelected && (i == "primary_color" || i == "secondary_color" || i == "text_color"|| i =="background_color" ))) {
+                if(i == "name" || i == "handle" || i =="about"|| (themeSelected && (i == "primary_color" || i == "secondary_color" || i == "text_color"|| i =="background_color" ))) {
                     profileFormData.append(i,""+el);
                 } else if(i == "tempAvatar") {
                     var imageURI = $('#avatarUploadDiv').cropit('export', {
